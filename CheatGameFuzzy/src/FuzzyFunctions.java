@@ -1,9 +1,5 @@
 import java.util.*;
 
-//import fuzzy.FuzzyEngine;
-//import fuzzy.LinguisticVariable;
-//import fuzzy.NoRulesFiredException;
-//import fuzzy.RulesParsingException;
 
 public class FuzzyFunctions {
 
