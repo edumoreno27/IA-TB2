@@ -82,7 +82,7 @@ public class GameController {
 					char rank = s.charAt(0);
 					
 					char suit = s.charAt(1);
-					Card card = new Card(rank, suit);
+					Carta card = new Carta(rank, suit);
 					gamelogic.addCardToPile(card);
 					gamelogic.players[0].removeCardFromHand(card);
 				}

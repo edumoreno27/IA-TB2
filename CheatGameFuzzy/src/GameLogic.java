@@ -12,8 +12,8 @@ public class GameLogic {
 	static final char[] possibleranks = {'2','3','4','5','6','7','8','9','T','J','Q','K','A'};
 
 	Player[] players = new Player[4]; //assume always 4 players
-	ArrayList<Card> allcards = new ArrayList<Card>();
-	ArrayList<Card> pile = new ArrayList<Card>();
+	ArrayList<Carta> allcards = new ArrayList<Carta>();
+	ArrayList<Carta> pile = new ArrayList<Carta>();
 
 	List<String> currentranks = new ArrayList<String>();
 	Move lastMove;
@@ -25,18 +25,18 @@ public class GameLogic {
 		for(char rank: possibleranks){
 			for(char suit: possiblesuits)
 			{
-				Card card = new Card(rank, suit);
+				Carta card = new Carta(rank, suit);
 				allcards.add(card);
 			}
 		}
 	}
 
 	/**getters **/
-	public ArrayList<Card> getAllcards() {
+	public ArrayList<Carta> getAllcards() {
 		return allcards;
 	}
 
-	public ArrayList<Card> getPile() {
+	public ArrayList<Carta> getPile() {
 		return pile;
 	}
 
@@ -94,7 +94,7 @@ public class GameLogic {
 		lastMove = m;
 	}
 
-	public void addCardToPile(Card c){
+	public void addCardToPile(Carta c){
 		pile.add(c);
 	}
 
@@ -140,7 +140,7 @@ public class GameLogic {
 		 * Game state: last move, cards in pile, number of cards in each players hands, current ranks allowed
 		 */
 		Move m = player.getNextMove(lastMove, cardsinpile, playershands, currentranks); 
-		for(Card c: player.mylastmove)
+		for(Carta c: player.mylastmove)
 		{
 			pile.add(c);
 		}
@@ -196,7 +196,7 @@ public class GameLogic {
 	}
 
 	public void pickUpCards(int player) {
-		for(Card card: pile)
+		for(Carta card: pile)
 		{
 			players[player].addCardToHand(card);
 		}

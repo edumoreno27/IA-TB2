@@ -7,8 +7,8 @@ public class Player {
 	String name;
 	private int id;
 	//HashSet<Card> hand = new HashSet<Card>(); //score is the number of cards in hand
-	List<Card> hand = new ArrayList<Card>();
-	List<Card> mylastmove = new ArrayList<Card>();
+	List<Carta> hand = new ArrayList<Carta>();
+	List<Carta> mylastmove = new ArrayList<Carta>();
 	String strategy; // possible values: "human", "random", "risky", "safe"
 	
 	Player(String name, String strategy) 
@@ -18,15 +18,15 @@ public class Player {
 		id = currplayerid;
 		currplayerid++;
 	}
-	public List<Card> getHand() { return hand;}
+	public List<Carta> getHand() { return hand;}
 	public String getStrategy() {return strategy; }
 	public int getId() { return id;}
 	
-	public void addCardToHand(Card card) {
+	public void addCardToHand(Carta card) {
 		hand.add(card);
 	}
 
-	public void removeCardFromHand(Card card) {
+	public void removeCardFromHand(Carta card) {
 		hand.remove(card);
 	}
 	
@@ -37,11 +37,11 @@ public class Player {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public void setHand(List<Card> hand) {
+	public void setHand(List<Carta> hand) {
 		this.hand = hand;
 	}
 
-	private void addCardsToLastMove(Card c) {
+	private void addCardsToLastMove(Carta c) {
 		mylastmove.clear();
 		mylastmove.add(c);
 	}
@@ -57,7 +57,7 @@ public class Player {
 		/* if the number of cards of the rank known is greater than 4, call cheat*/
 
 		int numInHand = 0;//count how many cards player has of the last move rank.
-		for(Card c: hand )
+		for(Carta c: hand )
 		{
 			if(c.rank == lastMove.rank)
 			{
@@ -129,16 +129,16 @@ public class Player {
 			{
 				/*get all the cards in player's hand with that rank*/		
 				numcards = numPerRank.get((Character)cardrank);
-				Card[] cards = new Card[numcards];
+				Carta[] cards = new Carta[numcards];
 
 				int i =  0;
-				for(Card c: hand){
+				for(Carta c: hand){
 					if(c.getRank() == cardrank){
 						cards[i] = c;
 						i++;
 					}
 				}
-				for(Card c: cards){
+				for(Carta c: cards){
 					this.removeCardFromHand(c);
 					this.addCardsToLastMove(c);
 				}
@@ -156,14 +156,14 @@ public class Player {
 				else //strategy == risky
 					randomNum = rand.nextInt(4) + 3;
 				
-				Card[] cards = new Card[randomNum];
+				Carta[] cards = new Carta[randomNum];
 
 				for(int i =0; i<randomNum; i++)
 				{
 					int randomid = rand.nextInt(hand.size()-1) ;
 					cards[i] = hand.get(randomid);
 				}
-				for(Card c: cards){
+				for(Carta c: cards){
 					this.removeCardFromHand(c);
 					this.addCardsToLastMove(c);
 				}
@@ -186,7 +186,7 @@ public class Player {
 		for(char rank: ranks)
 		{
 			//count how many cards they have of each rank.
-			for(Card c: hand ){
+			for(Carta c: hand ){
 				if(c.rank == rank){
 					if(numPerRank.containsKey(rank))
 					{

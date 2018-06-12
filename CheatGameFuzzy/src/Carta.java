@@ -1,30 +1,30 @@
 import javax.swing.ImageIcon;
 
-public class Card {
+public class Carta {
 
-	char rank; //A,2,3,4,5,6,7,8,9,T,J,Q,K ( use T for 10)
+	char rank; //A,2,3,4,5,6,7,8,9,T,J,Q,K ( se usa T para 10)
 	char suit; //h,d,c,s (hearts, diamonds, clubs, spades)
 	
-	ImageIcon cardFaceImage; 
-	String imageFilename;
+	ImageIcon imagenCarta; 
+	String archivoImagen;
 	
-	public Card(char rank, char suit){
+	public Carta(char rank, char suit){
 		this.rank = rank;
 		this.suit = suit;
 		
-		imageFilename = "cards/card-images/" +rank + suit + ".gif";
+		archivoImagen = "cards/card-images/" +rank + suit + ".gif";
 	}
 	
 	public String getImageFilename(){
-		return imageFilename;
+		return archivoImagen;
 	}
 
 	public ImageIcon getCardFaceImage() {
-		return cardFaceImage;
+		return imagenCarta;
 	}
 
 	public void setCardFaceImage(ImageIcon cardFaceImage) {
-		this.cardFaceImage = cardFaceImage;
+		this.imagenCarta = cardFaceImage;
 	}
 
 	public char getRank() {
@@ -43,7 +43,7 @@ public class Card {
             return false;
         }
 
-        Card card = (Card) obj;
+        Carta card = (Carta) obj;
         return((suit == card.suit) && (rank == card.rank));
     }
 

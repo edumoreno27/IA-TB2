@@ -255,7 +255,7 @@ public class MainGameFrame extends JFrame{
 		cardPanel.removeAll();
 		checkboxPanel.removeAll();
 
-		for(Card card: human.getHand())
+		for(Carta card: human.getHand())
 		{
 			BufferedImage myPicture = ImageIO.read(new File(card.getImageFilename()));
 			Image img = myPicture.getScaledInstance(50, 70,  java.awt.Image.SCALE_SMOOTH);
