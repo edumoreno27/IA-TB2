@@ -6,16 +6,16 @@ import java.util.List;
 import javax.swing.JButton;
 
 /**
- * Reports actions on the view to the model 
- * Chain of events:
- * 
- * Player0 makes a move, hits OK
- * Other Players can call their bluff
- * Player1 makes a move
- * Player 0 sees Cheating/Not cheating button and must select one
- * If calls cheating: is given the pile, else player1 is given the pile
- * Other players can call player1s bluff
- * Player2 makes a move
+ * Reportar las acciones de la vista al modelo
+ * Guia de movimientos:
+ * Player0 hace un movimiento, selecciona OK
+ * Otro jugador puede llamarlo "mentiroso"
+ * Player1 hace un movimiento
+ * Player 0 ve el botón Miente/No miente y debe seleccionar uno
+ * Si llama miente: si el acusado miente se le dará la pila de cartas, de lo contrario player0 recibirá la pila
+ * Si llama no miente: le toca al siguiente jugador si duda
+ * Otro jugador puede llamar a player1 "mentiroso"
+ * Player2 hace un movimiento
  */
  
 public class GameController {
@@ -23,7 +23,7 @@ public class GameController {
 	GameLogic gamelogic;
 	MainGameFrame view;
 	
-	int currplayer = 0; //whose turn it is (players 0 to 3)
+	int currplayer = 0; //Turno del actual jugador (players 0 a 3)
 
 	public void addModel(GameLogic model) {
 		gamelogic = model;
@@ -40,19 +40,19 @@ public class GameController {
 		b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
-				System.out.println("Started game: " + "Controller' action performed was called");
+				System.out.println("Comenzando juego: " + "La acción del controlador fue llamada");
 
-				/*When the start button is clicked, we should initialize the game, so that the view can show players hand*/
+				/*Cuando se hace clic en el botón start, se inicializa el juego, se muestra la mano del jugador*/
 				gamelogic.startGame();
 				
-				//when the game starts we need to display each players cards
+				//Cuando el juego inicia se muestra las cartas del jugador
 				try {
 					view.setItsYourTurn(true);
 					view.update();
 					view.setStartDisabled();
 					
 				} catch (IOException e1) {
-					System.out.println("Error getting the images for the cards");
+					System.out.println("Error consiguiendo la imagen de las cartas");
 					e1.printStackTrace();
 				}
 			}
@@ -66,15 +66,8 @@ public class GameController {
 		b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
-				System.out.println("User made a move");
+				System.out.println("Jugador hizo un movimiento");
 
-				/*When the OK button is clicked:
-				 *  update gamelogic.pile
-				 *  we should get the players move,
-				 *  save it to the game logic as "last move"
-				 *  ask the other players if they want to call cheat.
-				 *  call playMove() for player 2, display on the screen what he played.
-				 */
 
 				List<String> cardsplayed = view.getActualCardsPlayed();
 				for(String s: cardsplayed)
@@ -93,33 +86,33 @@ public class GameController {
 				
 				
 				/*
-				 * check if opponents want to call player's bluff
+				 * verificar si los oponentes quieren llamar mentiroso al jugador
 				 */
 				boolean cheatcalled = gamelogic.checkIfCaughtCheating(0, false); 
 				if(!m.isValid() && cheatcalled)
 				{
-					view.updateCheatLabel("You were caught cheating!! The whole pile has been added to your hand");
+					view.updateCheatLabel("Fuiste atrapado mintiendo!! La pila de cartas completa fue anadida a tu mano");
 				}
 				else if( !m.isValid() && !cheatcalled){
-					view.updateCheatLabel("Lucky! No one accused you of cheating!");
+					view.updateCheatLabel("Suerte! Nadie te acuso de mentir!");
 				}
 				else if(m.isValid() && cheatcalled){
-					view.updateCheatLabel("You were falsely accused of cheating! The pile has been added to your opponent's hand");
+					view.updateCheatLabel("Fuiste acusado falsamente de mentir! La pila de cartas fue anadida a la mano de tu oponente");
 				}
 				else{
-					view.updateCheatLabel("No one tried to accuse you of cheating.");
+					view.updateCheatLabel("Nadie intento acursarte de mentir");
 				}
 					
-				gamelogic.getPossibleRanksToPlay(); //gets and set the possible ranks to play
+				gamelogic.getPossibleRanksToPlay(); //gets y set de los posible ranks a jugar
 				incrementCurrPlayerAndExecuteTurn();
 				
 				view.setItsYourTurn(false);
 				
-				//call update to refresh the view
+				//update para refrescar la vista
 				try {
 					view.update();
 				} catch (IOException e1) {
-					System.out.println("Error getting the images for the cards");
+					System.out.println("Error consiguiendo la imagen de las cartas");
 					e1.printStackTrace();
 				}
 			}
@@ -130,29 +123,29 @@ public class GameController {
 	
 	JButton getCallCheatButton()
 	{
-		JButton b = new JButton("Cheating!");
+		JButton b = new JButton("Mentira!");
 		
 		b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
-				//check whether cheat call is valid and redistribute cards accordingly
+				//Revisar si el llamado de mentira es valido y redistribuir las cartas de acuerdo a la mentira				
 				gamelogic.checkIfCaughtCheating(currplayer, true);
 				
 				if(gamelogic.getLastMove().isValid())
 				{
-					view.updateCheatLabel("Nope, wasn't cheating! The pile has been added to your hand.");
+					view.updateCheatLabel("No, no estuvo mintiendo! The pila sera anadida a tu mano");
 				}
 				else{
-					view.updateCheatLabel("You're right! They were cheating! The pile has been added to their hand");
+					view.updateCheatLabel("Correcto! Estuvo mintiendo! La pila sera anadida a su mano");
 				}
 				
 				incrementCurrPlayerAndExecuteTurn();
 				
-				//update player's cards on the view
+				//Actualizar las cartas del jugador en la vista
 				try {
 					view.update();
 				} catch (IOException e1) {
-					System.out.println("Error getting the images for the cards");
+					System.out.println("Error consiguiendo la imagen de las cartas");
 					e1.printStackTrace();
 				}
 			}
@@ -163,24 +156,24 @@ public class GameController {
 	
 	JButton getNotCheatingButton()
 	{
-		JButton b = new JButton("Nope");
+		JButton b = new JButton("No");
 	
 		b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				
-				//check whether cheat call is valid and redistribute cards accordingly
+				//Revisar si el llamado de mentira es valido y redistribuir las cartas de acuerdo a la mentira
 				boolean cheatcalled = gamelogic.checkIfCaughtCheating(currplayer, false);
 				
 				if(cheatcalled && !gamelogic.getLastMove().isValid())
-					view.updateCheatLabel("Player " + (currplayer+1) + " was caught cheating! The pile has been added to their hand");
+					view.updateCheatLabel("Player " + (currplayer+1) + " fue atrapado mintiendo! La pila sera anadida a su mano");
 				
 				incrementCurrPlayerAndExecuteTurn();
 				
-				//update player's cards on the view
+				//Actualizar las cartas del jugador en la vista
 				try {
 					view.update();
 				} catch (IOException e1) {
-					System.out.println("Error getting the images for the cards");
+					System.out.println("Error consiguiendo la imagen de las cartas");
 					e1.printStackTrace();
 				}
 				
@@ -196,20 +189,19 @@ public class GameController {
 		if(currplayer < 3)
 		{
 			/*
-			 * increment currplayer and call playMove for that player
-			 */
+			 * aumentar currplayer y llamar playMove para ese jugador		 */
 			currplayer++;			
 			Move newmove = gamelogic.playMove(currplayer); 
 			gamelogic.setLastMove(newmove);
 			
-			//output to the view what the players move was
-			view.updateInfoLabel("Player: " + (currplayer +1) + "'s move: " + newmove.toString());
+			//output a la vista de cual fue el movimiento del jugador
+			view.updateInfoLabel("Player: " + (currplayer +1) + "'s movio: " + newmove.toString());
 			
-			//make cheat button appear so that user could call the players bluff
+			//hacer que aparezca el boton de mentira asi el jugador puede acusarlo
 			view.displayCheatButtons(true);
 		
 		}	
-		else //currplayer is 3 so next player is 0 ( the user)
+		else //currplayer es 3 entonces el siguiente es 0 ( the user)
 		{ 
 			currplayer = 0;
 			view.setItsYourTurn(true);
@@ -219,7 +211,7 @@ public class GameController {
 		view.updateOtherInfor("" + gamelogic.getPlayerScores());
 		
 		int winner = gamelogic.someoneHasWon();
-		if(winner > -1) view.updateOtherInfor("Game over: " + gamelogic.players[winner].name + " has finished all their cards!" );
+		if(winner > -1) view.updateOtherInfor("Juego terminado: " + gamelogic.players[winner].name + " se quedó sin cartas!" );
 			
 	}
 

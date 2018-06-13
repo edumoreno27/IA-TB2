@@ -34,7 +34,7 @@ public class Move {
 	
 	public String toString()
 	{
-		return "" + numcards + " card(s) of rank: " + String.valueOf(rank); // + " -- isValid? " + isValid ;
+		return "" + numcards + " cartas de rank: " + String.valueOf(rank);
 	}
 	
 }

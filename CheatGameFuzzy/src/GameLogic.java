@@ -11,7 +11,7 @@ public class GameLogic {
 	static final char[] possiblesuits = {'h', 'd', 's', 'c'};
 	static final char[] possibleranks = {'2','3','4','5','6','7','8','9','T','J','Q','K','A'};
 
-	Player[] players = new Player[4]; //assume always 4 players
+	Player[] players = new Player[4]; //asumimos que habran 4 jugadores
 	ArrayList<Carta> allcards = new ArrayList<Carta>();
 	ArrayList<Carta> pile = new ArrayList<Carta>();
 
@@ -21,7 +21,7 @@ public class GameLogic {
 	/**constructor**/
 	GameLogic()
 	{
-		//initialise the cards
+		//inicializar las cartas
 		for(char rank: possibleranks){
 			for(char suit: possiblesuits)
 			{
@@ -44,7 +44,7 @@ public class GameLogic {
 		return players;
 	}
 
-	public Move getLastMove() {//the play that was last claimed to be played
+	public Move getLastMove() {//la jugada que fue reclamada por última vez para ser jugada
 		return lastMove;
 	}
 
@@ -100,11 +100,11 @@ public class GameLogic {
 
 	public void startGame() {
 
-		//init players, scores, players cards..
-		players[0] = new Player("Player 1 (You)" , "human");
-		players[1] = new Player("Player 2 (Risk-taker)", "risky");
-		players[2] = new Player("Player 3 (Plays safe)", "safe");
-		players[3] = new Player("Player 4: (Random)", "random" );
+		//inicializar players, scores, players cards..
+		players[0] = new Player("Player 1 (Tu)" , "humano");
+		players[1] = new Player("Player 2 (Toma Riesgos)", "riesgoso");
+		players[2] = new Player("Player 3 (Juego seguro)", "seguro");
+		players[3] = new Player("Player 4: (Aleatorio)", "aleatorio" );
 
 		Collections.shuffle(allcards);
 
@@ -125,10 +125,10 @@ public class GameLogic {
 	/**pass the game state to the player and invoke getNextMove */
 	public Move playMove(int playerid) {
 
-		//let player i play a move
+		//dejar que player i haga un movimiento
 		Player player = players[playerid];
 
-		//given the move that previous player just made and other information about the game, make a move
+		//dado el movimiento que el jugador anterior acaba de hacer y otra información sobre el juego, haga un movimiento
 		int cardsinpile = pile.size();
 		int[] playershands = new int[4];
 		for(Player p: players)
@@ -136,9 +136,6 @@ public class GameLogic {
 			playershands[p.getId()] = p.getHand().size();
 		}
 
-		/**
-		 * Game state: last move, cards in pile, number of cards in each players hands, current ranks allowed
-		 */
 		Move m = player.getNextMove(lastMove, cardsinpile, playershands, currentranks); 
 		for(Carta c: player.mylastmove)
 		{
@@ -150,9 +147,9 @@ public class GameLogic {
 
 	public boolean checkIfCaughtCheating(int playerid, boolean userCalledCheat) {
 
-		//playerid is the id of the player who made the last move ( ie they take the pile if caught cheating)
+		//playerid es el id del player que hizo el ultimo movimiento ( ie ellos toman la pila si son atrapados mintiendo)
 
-		int calledcheat = -1; // if not -1, that means that some player called cheat
+		int calledcheat = -1; // si no es -1, esto significa que algun jugador llamo mentiroso a otro
 		boolean cheatingcalled  = false;
 
 		if(userCalledCheat)
@@ -161,7 +158,7 @@ public class GameLogic {
 		}
 		else
 		{
-			//for each AI opponent, see if they want to call cheat.
+			//para cada oponente de AI, ver si ellos llaman "mentiroso"
 			for(int i = 1 ; i< players.length;i++)
 			{
 				if(i!= playerid)
@@ -179,18 +176,18 @@ public class GameLogic {
 		
 		if(cheatingcalled && !lastMove.isValid())
 		{ 
-			System.out.println("Player " + playerid + " was caught cheating by player " + calledcheat);
+			System.out.println("Player " + playerid + " fue atrapado mintiendo por player " + calledcheat);
 			pickUpCards(playerid);
 		}
 		else if (cheatingcalled && lastMove.isValid()){
 
-			//player who called cheat has to take the whole pile
+			//juegador que llame mentiroso tendra que coger todas las cartas de la pila
 
-			System.out.println("Player " + playerid + " was falsely accused by player " + calledcheat);
+			System.out.println("Player " + playerid + " fue falsamente acusado por player " + calledcheat);
 			pickUpCards(calledcheat);
 		}
 		else{
-			System.out.println("No one called cheat on player " + playerid);
+			System.out.println("Nadie llamo mentiroso al player " + playerid);
 		}
 		return cheatingcalled;
 	}
@@ -205,11 +202,11 @@ public class GameLogic {
 
 	public String getPlayerScores() {
 		
-		String s = "Number of cards:  ";
+		String s = "Numero de cartas:  ";
 		for(Player p: players){
 			s+= " "+ p.name + ": " + p.getHand().size() + " ";
 		}
-		s+= " /In the pile: " + pile.size();
+		s+= " /En la pila: " + pile.size();
 		return s;
 	}
 

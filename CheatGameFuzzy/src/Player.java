@@ -2,14 +2,14 @@ import java.util.*;
 
 public class Player {
 
-	static int currplayerid = 0; //player ids start at 0
+	static int currplayerid = 0; //id de player comienza en 0 0
 
 	String name;
 	private int id;
-	//HashSet<Card> hand = new HashSet<Card>(); //score is the number of cards in hand
+	
 	List<Carta> hand = new ArrayList<Carta>();
 	List<Carta> mylastmove = new ArrayList<Carta>();
-	String strategy; // possible values: "human", "random", "risky", "safe"
+	String strategy; // posibles valores: "humano", "aleatorio", "riesgoso", "seguro"
 	
 	Player(String name, String strategy) 
 	{
@@ -47,16 +47,15 @@ public class Player {
 	}
 
 	/*
-	 * Method used by AI players to determine if they want to call cheat
-	 * @return true if calling cheat on lastMove, false if letting it pass
+	 * Metodo usado por los jugadores AI para determinar si ellos quieren llamar mentiroso a otro jugador
+	 * @return true si llama mentiroso en su lastMove, false si lo deja pasar
 	 */
 	public boolean wantToCallCheat(Move lastMove, int cardsInOpponentsHand, int pilesize, char[] allranks){
 
-		// input: pilesize, size of each player's hands, currentranks to choose from.
-		// also given the players move (ignore the isValid parameter)
-		/* if the number of cards of the rank known is greater than 4, call cheat*/
-
-		int numInHand = 0;//count how many cards player has of the last move rank.
+		// input: pilesize, tamaño de la mano de cada oponente, currentranks para escoger
+		
+		//Cuenta cuantas cartas el jugador tiene de su ultimo movimiento rank
+		int numInHand = 0;
 		for(Carta c: hand )
 		{
 			if(c.rank == lastMove.rank)
@@ -69,21 +68,21 @@ public class Player {
 		int totalKnown = numInMove + numInHand;
 		if(totalKnown > 4)  return true;
 
-		/* if opponent has put down all of their cards, automatically call cheat because they will win*/
+		/* Si el oponente se quedo sin cartas, automaticamente llamarlo mentiroso porque podria ganar*/
 		if(cardsInOpponentsHand == 0) return true;
 
-		//check Rules
+		//verificar reglas
 		double is_cheating = Rules.checkRules(pilesize, cardsInOpponentsHand, this.hand.size());
 		
 		/*de-fuzzification*/
-		/* for the safe player the membership in these sets should be greater than 80%
-		 *  for the risk-taker it is 50% */
+		/* para el jugador seguro, la funcion membresía en estos conjuntos debe ser mayor al 80%
+		 *  para el seguro es de  50% */
 		double percentrule;
 		if(strategy == "safe")
 		{
 			percentrule = 0.8;
 		}
-		else //(strategy == "risk-taker")
+		else 
 		{
 			percentrule = 0.5;
 		}
@@ -95,20 +94,9 @@ public class Player {
 		return false;
 	}
 
-	/***
-	 * In order to decide on a move, the player needs the state of the game
-	 * 
-	 * @param lastMove
-	 * @param cardsinpile
-	 * @param playershands
-	 * @param currentranks - the ranks that player is allowed to put down 
-	 * @return nextmove
-	 * 
-	 * It returns a move object -- consisting of the number of cards played, rank claimed and whether it is a valid move
-	 */
 	Move getNextMove(Move lastMove, int cardsinpile, int[] playershands, List<String> currentranks)
 	{
-		//figure out the best move to make based on the current game state and then return it to the caller
+		//Encontrar el mejor movimiento basado en el estado del juego y retornar estos al caller
 		boolean isValidMove = false;
 		char cardrank = 0;
 		int numcards = 0;
@@ -119,15 +107,15 @@ public class Player {
 		System.out.println(" --Num cards per allowed rank: " + numPerRank); 
 
 		Random rand = new Random();
-		//choose a random card rank to play
+		//eligiendo un rank random para escoger
 		char randomrank = currentranks.get(rand.nextInt(currentranks.size()-1)).charAt(0);
 
-		if(strategy != null) // == "random")
+		if(strategy != null) 
 		{
 			cardrank = randomrank;
 			if (numPerRank.containsKey((Character)cardrank))
 			{
-				/*get all the cards in player's hand with that rank*/		
+				/*obetener todas las cartas de la mano del jugador con ese rank*/		
 				numcards = numPerRank.get((Character)cardrank);
 				Carta[] cards = new Carta[numcards];
 
@@ -145,15 +133,15 @@ public class Player {
 
 				isValidMove = true;
 			}
-			else/* the rank chosen is not in the player's hand*/
+			else/* El rank escogio no esta en la mano del jugador*/
 			{ 
-				//choose from 1 to 4 random cards to play
+				//elegir de 1 a 4 cartas aleatorias para jugar
 				int randomNum;
-				if(strategy == "random") 
+				if(strategy == "aleatorio") 
 					randomNum = rand.nextInt(4) + 1;
-				else if(strategy == "safe")
+				else if(strategy == "seguro")
 					randomNum = rand.nextInt(2) + 1;
-				else //strategy == risky
+				else 
 					randomNum = rand.nextInt(4) + 3;
 				
 				Carta[] cards = new Carta[randomNum];
@@ -172,7 +160,7 @@ public class Player {
 			}
 		}
 		Move move = new Move(numcards, cardrank, isValidMove);
-		System.out.println( name + " makes move: " + move);
+		System.out.println( name + " hizo el movimiento: " + move);
 
 		return move;
 	}
@@ -185,7 +173,7 @@ public class Player {
 		Map<Character, Integer> numPerRank = new HashMap<Character,Integer>();	
 		for(char rank: ranks)
 		{
-			//count how many cards they have of each rank.
+			//contar cuantas cartas tiene cada rank
 			for(Carta c: hand ){
 				if(c.rank == rank){
 					if(numPerRank.containsKey(rank))

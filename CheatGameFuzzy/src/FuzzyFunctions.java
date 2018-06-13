@@ -3,7 +3,7 @@ import java.util.*;
 
 public class FuzzyFunctions {
 
-	//range ( to get the range of possible inputs)
+	//Rango ( para obtener el rango de las posibles entradas)
 	public static List<Integer> range(int start, int stop, int step){
 		List<Integer> result = new ArrayList<Integer>();
 		result.add(start);
@@ -44,7 +44,7 @@ public class FuzzyFunctions {
 		return Math.max(Math.min(first,Math.min(1.0, second)), 0.0);
 	}
 		
-	//hedges: generic function that alters given membership function by intensifying/ diluting it
+	//hedges
 	public static double hedge(double power, double membershipValue){
 		if (power == 0)
 			return 0.0;

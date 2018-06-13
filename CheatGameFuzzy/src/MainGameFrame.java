@@ -60,7 +60,7 @@ public class MainGameFrame extends JFrame{
 
 	MainGameFrame()
 	{
-		super("Cheat Card Game");
+		super("Juego de Cartas Mentiroso");
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(900,500);
@@ -68,18 +68,17 @@ public class MainGameFrame extends JFrame{
 		contentPane = this.getContentPane();
 
 		topPane = new JPanel();
-		topPane.setLayout(new BoxLayout(topPane, BoxLayout.PAGE_AXIS)); //vertical layout
+		topPane.setLayout(new BoxLayout(topPane, BoxLayout.PAGE_AXIS)); 
 
 		topPane.setBackground(backgroundColor);
 
 		bottomPane = new JPanel();
-		bottomPane.setLayout(new BoxLayout(bottomPane, BoxLayout.PAGE_AXIS)); //vertical layout
+		bottomPane.setLayout(new BoxLayout(bottomPane, BoxLayout.PAGE_AXIS)); 
 
 		checkboxPanel = new JPanel();
-		checkboxPanel.setLayout(new BoxLayout(checkboxPanel, BoxLayout.LINE_AXIS));//horizontal layout
-
+		checkboxPanel.setLayout(new BoxLayout(checkboxPanel, BoxLayout.LINE_AXIS));
 		cardPanel = new JPanel();
-		cardPanel.setLayout(new BoxLayout(cardPanel, BoxLayout.LINE_AXIS));//horizontal layout
+		cardPanel.setLayout(new BoxLayout(cardPanel, BoxLayout.LINE_AXIS));
 
 		playerinfolabel = new JLabel("");
 		cheatlabel = new JLabel("");
@@ -103,14 +102,14 @@ public class MainGameFrame extends JFrame{
 	{
 
 		//JButton 
-		startbutton = controller.getStartButton("Start Game");
+		startbutton = controller.getStartButton("Comenzar juego");
 		startbutton.setAlignmentX(CENTER_ALIGNMENT);
 		topPane.add(startbutton);
 
 		//spacing
 		topPane.add(Box.createRigidArea(new Dimension(0,30)));
 
-		//gives the user the options for selecting the rank they will play
+		//Darle al usuario la opción de seleccionar el rank que desee jugar
 		ranklist = new JComboBox(gamelogic.getPossibleRanksToPlay());
 		ranklist.setMaximumSize(new Dimension(100, 20));
 		ranklist.setAlignmentX(CENTER_ALIGNMENT);
@@ -128,30 +127,29 @@ public class MainGameFrame extends JFrame{
 		//spacing
 		topPane.add(Box.createRigidArea(new Dimension(0,20)));
 
-		//contains the picture depicting the pile ( picture should not be there if pile is empty)
 		pileLabel = new JLabel();
 		pileLabel.setAlignmentX(CENTER_ALIGNMENT);
 		topPane.add( pileLabel );
 		
-		//other game info
+	
 		
 		otherinfo.setForeground(Color.white);
 		otherinfo.setAlignmentX(CENTER_ALIGNMENT);
 		topPane.add(otherinfo);
 
-		//label that tells user about the cheat calls 
+	
 		cheatlabel.setForeground(Color.white);
 		cheatlabel.setAlignmentX(CENTER_ALIGNMENT);
 		topPane.add(cheatlabel);
 		
 		topPane.add(Box.createRigidArea(new Dimension(0,20)));
 		
-		//label that says what the last player played and other relevant info
+		
 		playerinfolabel.setForeground(Color.white);
 		playerinfolabel.setAlignmentX(CENTER_ALIGNMENT);
 		topPane.add(playerinfolabel);
 
-		//gives the user instructions
+		
 		instructionsLabel = new JLabel();
 		instructionsLabel.setAlignmentX(CENTER_ALIGNMENT);
 		instructionsLabel.setForeground(Color.white);
@@ -159,11 +157,9 @@ public class MainGameFrame extends JFrame{
 
 		bottomPane.add(Box.createRigidArea(new Dimension(0,30)));
 
-		//Put everything together, using the content pane's BorderLayout.
-		contentPane.add(topPane, BorderLayout.CENTER); //center of screen
-		contentPane.add(bottomPane, BorderLayout.PAGE_END); //bottom of screen
-
-		this.setVisible(true); // display the window
+		contentPane.add(topPane, BorderLayout.CENTER); 
+		contentPane.add(bottomPane, BorderLayout.PAGE_END); 
+		this.setVisible(true); 
 	}
 	
 	public void setItsYourTurn(boolean isUsersTurn)
@@ -171,7 +167,7 @@ public class MainGameFrame extends JFrame{
 		if(isUsersTurn)
 		{
 			okbutton.setEnabled(true);
-			instructionsLabel.setText("Its your turn! Select 1 - 4 cards to put down, select which rank you are playing, and click OK");
+			instructionsLabel.setText("Es tu turno! Selecciona 1 - 4 cartas para poner abajo, seleccionar que rank estas jugando, y haz clic en OK");
 	
 			ranklist.setModel(new JComboBox(gamelogic.getPossibleRanksToPlay()).getModel());
 			ranklist.setEnabled(true);
@@ -180,7 +176,7 @@ public class MainGameFrame extends JFrame{
 			{
 				cheatingbutton.setVisible(false);
 				notcheatingbutton.setVisible(false);
-				//cheatlabel.setText("");
+				
 			}
 			
 		}
@@ -188,7 +184,7 @@ public class MainGameFrame extends JFrame{
 			okbutton.setEnabled(false);
 			ranklist.setEnabled(false);
 			
-			instructionsLabel.setText("Do you think they're cheating?");
+			instructionsLabel.setText("¿Piensas que esta mintiendo?");
 			cheatingbutton.setEnabled(true);
 			notcheatingbutton.setEnabled(true);
 		}
@@ -228,12 +224,12 @@ public class MainGameFrame extends JFrame{
 		}
 	}
 
-	public void update() throws IOException { //gets called whenever any player finishes their turn
+	public void update() throws IOException { 
 
 		
 		if(!gamelogic.getPile().isEmpty())
 		{
-			//get the image for the flipped over card
+			//obtener la imagen de la carta
 			try {	
 				BufferedImage myPicture = ImageIO.read(new File("cards/card-images/cardback.gif"));
 				Image img = myPicture.getScaledInstance(50, 70,  java.awt.Image.SCALE_SMOOTH);
@@ -248,8 +244,8 @@ public class MainGameFrame extends JFrame{
 			pileLabel.setIcon(null);
 		}
 
-		//output the cards that player 1 is holding.
-		//to the bottom pane, add the cards that player[0] is holding
+		//
+		
 		Player human = gamelogic.getPlayers()[0];
 
 		cardPanel.removeAll();
@@ -284,14 +280,14 @@ public class MainGameFrame extends JFrame{
 
 	public Move getPlayersLastMove()
 	{
-		//get actual cards played
+		//obtener las cartas actuales jugadas
 		List<String> cardsplayed = getActualCardsPlayed();
 
-		//get the rank claimed
+		//obtener el rank usado
 		String selecteditem = (String) ranklist.getSelectedItem();
 		char rankclaimed = selecteditem.charAt(0);
 
-		//check if is a valid move 
+		//verificar si es un movimiento valido
 		boolean isValid = isValidMove(cardsplayed, rankclaimed);
 
 		int n = cardsplayed.size();
@@ -299,12 +295,12 @@ public class MainGameFrame extends JFrame{
 		return new Move(n, rankclaimed, isValid);
 	}
 
-	/*return whether or not the cards played match the claimed card number and rank*/
+	/*retornar si la carta que se jugo coincide con el rank y numero escogido*/
 	private boolean isValidMove(List<String> cardsplayed, char rankclaimed)
 	{
-		boolean isValid = true; //assume true, 
+		boolean isValid = true; 
 
-		System.out.print("Cards played: ");
+		System.out.print("Cartas jugadas: ");
 		for(String cardname: cardsplayed)
 		{
 			System.out.print(cardname +" ");
@@ -318,17 +314,17 @@ public class MainGameFrame extends JFrame{
 		}
 		System.out.println();
 		
-		//if the ranks all match the rank claimed, then isValid will still be true.
+		
 		return isValid;
 	}
 
-	/*get the actual cards the user played*/
+
 	public List<String> getActualCardsPlayed() {
 
 		List<String> cardsplayed = new ArrayList<String>();
 		int numcards = 0;
 
-		//for check boxes in checkboxPanel
+		
 		for(Component c : checkboxPanel.getComponents())
 		{
 			if(c instanceof JCheckBox)
@@ -347,7 +343,7 @@ public class MainGameFrame extends JFrame{
 
 	public void updateInfoLabel(String string) {
 
-		//update the information label
+		
 		playerinfolabel.setText(string);
 	}
 
