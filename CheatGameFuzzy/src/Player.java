@@ -80,9 +80,9 @@ public class Player {
 		/* para el jugador seguro, la funcion membresía en estos conjuntos debe ser mayor al 80%
 		 *  para el seguro es de  50% */
 		double percentrule;
-		if(strategy == "safe")
+		if(strategy == "seguro")
 		{
-			percentrule = 0.8;
+			percentrule = 0.7;
 		}
 		else 
 		{
