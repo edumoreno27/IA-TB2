@@ -74,6 +74,9 @@ public class Player {
 
 		//verificar reglas
 		double is_cheating = Rules.checkRules(pilesize, cardsInOpponentsHand, this.hand.size());
+		System.out.println("Pilesize:: " + pilesize );
+		System.out.println("Cartas oponente:: " + cardsInOpponentsHand );
+		System.out.println("Mi mano:: " + this.hand.size() );
 		System.out.println("la probabilidad de que un jugador mienta el oponente es de :: " + is_cheating );
 		
 		/*de-fuzzification*/
