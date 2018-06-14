@@ -8,6 +8,7 @@ public class Player {
 	private int id;
 	
 	List<Carta> hand = new ArrayList<Carta>();
+	List<Carta> handToRetrive = new ArrayList<Carta>();
 	List<Carta> mylastmove = new ArrayList<Carta>();
 	String strategy; // posibles valores: "humano", "aleatorio", "riesgoso", "seguro"
 	
@@ -98,7 +99,9 @@ public class Player {
 	Move getNextMove(Move lastMove, int cardsinpile, int[] playershands, List<String> currentranks)
 	{
 		//Encontrar el mejor movimiento basado en el estado del juego y retornar estos al caller
+		
 		boolean isValidMove = false;
+		
 		char cardrank = 0;
 		int numcards = 0;
 
@@ -108,6 +111,8 @@ public class Player {
 		System.out.println(" --Num cards per allowed rank: " + numPerRank); 
 
 		Random rand = new Random();
+		
+		
 		//eligiendo un rank random para escoger
 		char randomrank = currentranks.get(rand.nextInt(currentranks.size()-1)).charAt(0);
 
@@ -123,7 +128,10 @@ public class Player {
 				int i =  0;
 				for(Carta c: hand){
 					if(c.getRank() == cardrank){
+						
 						cards[i] = c;
+						handToRetrive.add(cards[i]);
+						
 						i++;
 					}
 				}
@@ -200,5 +208,9 @@ public class Player {
 			i++;
 		}
 		return getNumPerRank(ranks);
+	}
+	
+	public List<Carta>retriveCardsFromLastMove(){
+		return handToRetrive;
 	}
 }

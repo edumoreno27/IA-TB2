@@ -48,11 +48,14 @@ public class MainGameFrame extends JFrame{
 	JButton okbutton;
 	JLabel pileLabel;
 
+	JLabel infoTB2;
+
 	JPanel cardPanel;
 	JPanel checkboxPanel;
 	
 	JButton cheatingbutton;
 	JButton notcheatingbutton;
+
 
 	Color backgroundColor = new Color(0, 110, 0); //dark green
 	private JLabel otherinfo;
@@ -83,6 +86,8 @@ public class MainGameFrame extends JFrame{
 		playerinfolabel = new JLabel("");
 		cheatlabel = new JLabel("");
 		otherinfo = new JLabel("");
+		
+		infoTB2 = new JLabel("");
 	}
 
 	public void addModel(GameLogic model) 
@@ -123,6 +128,12 @@ public class MainGameFrame extends JFrame{
 		okbutton.setAlignmentX(CENTER_ALIGNMENT);
 		topPane.add(okbutton);
 		okbutton.setEnabled(false);
+		
+		//label
+		infoTB2.setText("TB2 IA Mercado u201510738 - Moreno u201517035");
+		infoTB2.setAlignmentX(CENTER_ALIGNMENT);
+		infoTB2.setForeground(Color.white);
+		topPane.add( infoTB2 );
 		
 		//spacing
 		topPane.add(Box.createRigidArea(new Dimension(0,20)));

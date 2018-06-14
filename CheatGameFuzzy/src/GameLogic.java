@@ -95,6 +95,7 @@ public class GameLogic {
 	}
 
 	public void addCardToPile(Carta c){
+		
 		pile.add(c);
 	}
 
@@ -177,6 +178,9 @@ public class GameLogic {
 		if(cheatingcalled && !lastMove.isValid())
 		{ 
 			System.out.println("Player " + playerid + " fue atrapado mintiendo por player " + calledcheat);
+			//reice las cartas q puso sobre la mesa por mentiroso
+			rollbackTurn(playerid);
+			//reicbe cartas acumuladas en pile
 			pickUpCards(playerid);
 		}
 		else if (cheatingcalled && lastMove.isValid()){
@@ -184,7 +188,9 @@ public class GameLogic {
 			//juegador que llame mentiroso tendra que coger todas las cartas de la pila
 
 			System.out.println("Player " + playerid + " fue falsamente acusado por player " + calledcheat);
+			//jugador que acusop reicbe aumneot de cartas
 			pickUpCards(calledcheat);
+			
 		}
 		else{
 			System.out.println("Nadie llamo mentiroso al player " + playerid);
@@ -192,13 +198,24 @@ public class GameLogic {
 		return cheatingcalled;
 	}
 
+	
 	public void pickUpCards(int player) {
 		for(Carta card: pile)
 		{
 			players[player].addCardToHand(card);
+			
 		}
 		pile.clear();
 	}
+
+	
+	public void rollbackTurn(int player) {
+		for(Carta card: players[player].retriveCardsFromLastMove())
+		{
+			players[player].addCardToHand(card);	
+		}
+	}
+	
 
 	public String getPlayerScores() {
 		

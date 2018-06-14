@@ -133,7 +133,7 @@ public class GameController {
 				
 				if(gamelogic.getLastMove().isValid())
 				{
-					view.updateCheatLabel("No, no estuvo mintiendo! The pila sera anadida a tu mano");
+					view.updateCheatLabel("No, no estuvo mintiendo! La pila sera anadida a tu mano");
 				}
 				else{
 					view.updateCheatLabel("Correcto! Estuvo mintiendo! La pila sera anadida a su mano");
