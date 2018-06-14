@@ -80,7 +80,7 @@ public class Player {
 		System.out.println("la probabilidad de que un jugador mienta el oponente es de :: " + is_cheating );
 		
 		/*de-fuzzification*/
-		/* para el jugador seguro, la funcion membresía en estos conjuntos debe ser mayor al 80%
+		/* para el jugador seguro, la funcion membresía en estos conjuntos debe ser mayor al 70%
 		 *  para el seguro es de  50% */
 		double percentrule;
 		if(strategy == "seguro")

@@ -149,7 +149,9 @@ public class GameLogic {
 	public boolean checkIfCaughtCheating(int playerid, boolean userCalledCheat) {
 
 		//playerid es el id del player que hizo el ultimo movimiento ( ie ellos toman la pila si son atrapados mintiendo)
-
+		
+		
+		
 		int calledcheat = -1; // si no es -1, esto significa que algun jugador llamo mentiroso a otro
 		boolean cheatingcalled  = false;
 
@@ -162,6 +164,8 @@ public class GameLogic {
 			//para cada oponente de AI, ver si ellos llaman "mentiroso"
 			for(int i = 1 ; i< players.length;i++)
 			{
+				System.out.println("------------------- El player : "+ (i+1) + " calcula la porbabilidad de que el player "+ (playerid+1) + " este mintinedo ");
+				
 				if(i!= playerid)
 				{
 					if(players[i].wantToCallCheat(lastMove, players[playerid].getHand().size(), pile.size(), possibleranks))

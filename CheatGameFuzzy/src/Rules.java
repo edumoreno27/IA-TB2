@@ -53,7 +53,7 @@ public class Rules {
 		
 		
 		//para recta 1
-		System.out.println(" para la recta 1 : ");
+		System.out.println("------------------- Datos para la recta 1 : ---------------------------------");
 		for(int i = valoresRecta1[0]; i <= valoresRecta1[1] ; i++){
 			//cojemos los valores comprneidods en la recta
 			valores[i]= puntoNaranja1.y;
@@ -61,7 +61,7 @@ public class Rules {
 		}
 
 		//para recta 2
-		System.out.println(" para la recta 2 : ");
+		System.out.println("------------------- Datos para la recta 2 : ---------------------------------");
 		for(int i = valoresRecta2[0]; i <= valoresRecta2[1] ; i++){
 			//cojemos los valores comprneidods en la recta
 			if(valores[i] != 0 && valores[i] < puntoNaranja2.y){
@@ -71,7 +71,7 @@ public class Rules {
 		}
 
 		//para recta 3
-		System.out.println(" para la recta 3 : ");
+		System.out.println("------------------- Datos para la recta 3 : ---------------------------------");
 		for(int i = valoresRecta3[0]; i <= valoresRecta3[1] ; i++){
 			//cojemos los valores comprneidods en la recta
 			if(valores[i] != 0 && valores[i] < puntoNaranja3.y ){
@@ -81,7 +81,7 @@ public class Rules {
 		}
 		
 		//para recta 4
-		System.out.println(" para la recta 4 : ");
+		System.out.println("------------------- Datos para la recta 4 : ---------------------------------");
 		for(int i = valoresRecta4[0]; i <= valoresRecta4[1] ; i++){
 			//cojemos los valores comprneidods en la recta
 			if(valores[i] != 0 && valores[i] < puntoNaranja4.y){
@@ -91,7 +91,7 @@ public class Rules {
 		}
 
 		//para recta 5
-		System.out.println(" para la recta 5 : ");
+		System.out.println("------------------- Datos para la recta 5 : ---------------------------------");
 		for(int i = valoresRecta5[0]; i <= valoresRecta5[1] ; i++){
 			//cojemos los valores comprendidos en la recta
 			if(valores[i] != 0 && valores[i] < puntoNaranja5.y){
@@ -101,6 +101,9 @@ public class Rules {
 		}
 		
 		//calculasm el cenotride con sumas y multiplicaciones
+		
+		System.out.println("-------------------- Calculos Grafico Resultante (cheating)");
+		
 		double dividendo = 0.0;
 		double divisor = 0.0;
 		for(int i = 0; i < 100 ; i++){
@@ -122,49 +125,3 @@ public class Rules {
 	}
 
 }
-
-
-//forma antigua 
-
-/*
- * 
-		//
-		//Dado las entradas, checkRules usa el significado de maximo para desfuzificar
-		
-		
-		//rule 1: If la pila es pequeña then Miente
-		Punto puntoNaranja1 = new Punto();
-		double rule1 = FuzzyFunctions.triangle(0, 12,pilesize);   
-		
-		
-		//rule 2: If la pila es larga then No miente
-		double rule2 = 1- FuzzyFunctions.triangle(22, 52, pilesize);
-
-		
-		//rule 3: If la mano del oponente es pequeña then Miente
-		double rule3= FuzzyFunctions.triangle(0, 8,  cardsInOpponentsHand);
-		
-		
-		//rule 4: If la mano del oponente es grande then No miente
-		double rule4 = 1 - FuzzyFunctions.triangle(18, 52, cardsInOpponentsHand); 
-		
-		
-		
-		//rule 5: If mi mano es pequeña (Ganare pronto) then No miente
-		double rule5 = FuzzyFunctions.triangle(0, 8,  cardsInMyHand);
-
-		
-		//este método usa la regla más aplicable como el valor de verdad
-		return Math.max(Math.max(Math.max((Math.max(rule1, rule2)),rule3), rule4), rule5);
-
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- */
