@@ -74,13 +74,16 @@ public class Player {
 
 		//verificar reglas
 		double is_cheating = Rules.checkRules(pilesize, cardsInOpponentsHand, this.hand.size());
+		System.out.println("Pilesize:: " + pilesize );
+		System.out.println("Cartas oponente:: " + cardsInOpponentsHand );
+		System.out.println("Mi mano:: " + this.hand.size() );
 		System.out.println("la probabilidad de que un jugador mienta el oponente es de :: " + is_cheating );
 		
 		/*de-fuzzification*/
 		/* para el jugador seguro, la funcion membresía en estos conjuntos debe ser mayor al 80%
 		 *  para el seguro es de  50% */
 		double percentrule;
-		if(strategy == "safe")
+		if(strategy == "seguro")
 		{
 			percentrule = 0.8;
 		}

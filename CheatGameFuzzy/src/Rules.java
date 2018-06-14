@@ -46,10 +46,10 @@ public class Rules {
 		
 		//CALCULO DE CENTROIDE
 		double []valores = new double[100];
+	
 		for(int i = 0; i < 100 ; i++){
 			valores[i] = 0.0;
 		}
-
 		
 		
 		//para recta 1
@@ -64,7 +64,7 @@ public class Rules {
 		System.out.println(" para la recta 2 : ");
 		for(int i = valoresRecta2[0]; i <= valoresRecta2[1] ; i++){
 			//cojemos los valores comprneidods en la recta
-			if(valores[i] != 0){
+			if(valores[i] != 0 && valores[i] < puntoNaranja2.y){
 			valores[i]= puntoNaranja2.y;
 			}
 			System.out.println(" para la recta 2 :(valor) ::  "+puntoNaranja2.y+ " valor :: "+i);
@@ -74,7 +74,7 @@ public class Rules {
 		System.out.println(" para la recta 3 : ");
 		for(int i = valoresRecta3[0]; i <= valoresRecta3[1] ; i++){
 			//cojemos los valores comprneidods en la recta
-			if(valores[i] != 0){
+			if(valores[i] != 0 && valores[i] < puntoNaranja3.y ){
 			valores[i]= puntoNaranja3.y;
 			}
 			System.out.println(" para la recta 3 :(valor) ::  "+puntoNaranja3.y+ " valor :: "+i);
@@ -84,7 +84,7 @@ public class Rules {
 		System.out.println(" para la recta 4 : ");
 		for(int i = valoresRecta4[0]; i <= valoresRecta4[1] ; i++){
 			//cojemos los valores comprneidods en la recta
-			if(valores[i] != 0){
+			if(valores[i] != 0 && valores[i] < puntoNaranja4.y){
 			valores[i]= puntoNaranja4.y;
 			}
 			System.out.println(" para la recta 4 :(valor) ::  "+puntoNaranja4.y+ " valor :: "+i);
@@ -94,7 +94,7 @@ public class Rules {
 		System.out.println(" para la recta 5 : ");
 		for(int i = valoresRecta5[0]; i <= valoresRecta5[1] ; i++){
 			//cojemos los valores comprendidos en la recta
-			if(valores[i] != 0){
+			if(valores[i] != 0 && valores[i] < puntoNaranja5.y){
 			valores[i]= puntoNaranja5.y;
 			}
 			System.out.println(" para la recta 5 :(valor) ::  "+puntoNaranja5.y+ " valor :: "+i);
@@ -107,7 +107,7 @@ public class Rules {
 			System.out.println(" para la suma :(valor)  "+ i +" ::  "+valores[i]);
 			
 			divisor = divisor + valores[i];
-			dividendo = dividendo + (valores[i]*(i+1));
+			dividendo = dividendo + (valores[i]*(i));
 		}
 
 		System.out.println("dividendo : " + dividendo );
