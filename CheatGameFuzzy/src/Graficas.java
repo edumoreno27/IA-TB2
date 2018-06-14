@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Graficas {
@@ -6,8 +7,34 @@ public class Graficas {
 	ArrayList <Punto> arreglo3;
 	ArrayList <Punto> arreglo4;
 	ArrayList <Punto> arreglo5;
+	ArrayList <Punto> arreglo6;
+	int pilesize;
+	int oponentHand;
+	int myHand;
+	public ArrayList<Punto> getArreglo6() {
+		return arreglo6;
+	}
+
+	public void setArreglo6(ArrayList<Punto> arreglo6) {
+		this.arreglo6 = arreglo6;
+	}
+
+	int[] valoresRecta = new int[2];
 	
-	public Graficas() {
+	
+	public Graficas(	int a,int b,	int c) {
+		//vlaord e la recta reusltante de ocmbinar linea d eprobabilidad ocn grafica 
+		//X del primer punto
+		valoresRecta[0] = 0;
+		//X del seugn punto
+		valoresRecta[1] = 0;
+		//Y de los puntos
+		
+		
+		pilesize=a;
+		oponentHand=b;
+		myHand=c;
+		
 		//Relacionados al tamaño de la fila
 		//Pila corta
 		arreglo1= new ArrayList<Punto>();
@@ -21,6 +48,8 @@ public class Graficas {
 		//Cartas en mi mano
 		//Pocas cartas
 		arreglo5= new ArrayList<Punto>();
+		//Cheat
+		arreglo6=new ArrayList<Punto>();
 		
 		for(int i=0;i<49;i++)
 		{
@@ -41,7 +70,11 @@ public class Graficas {
 		}
 		for(int i=0;i<50;i++)
 		{
-			arreglo4.add(new Punto(0,8,i));
+			arreglo5.add(new Punto(0,8,i));
+		}
+		for(int i=0;i<101;i++)
+		{
+			arreglo6.add(new Punto(0,100,i));
 		}
 	}
 
@@ -83,6 +116,157 @@ public class Graficas {
 
 	public void setArreglo5(ArrayList<Punto> arreglo5) {
 		this.arreglo5 = arreglo5;
+	}
+	
+	//Funciones para obneter valores de las recta de interseccion entre grafica y probabilidad (input)
+	
+	public int[] getValuesRecta1(){
+		int []valores = new int[]{0,0};
+		double prob1=arreglo1.get(pilesize).getY();
+		boolean ap1=true;
+		boolean ap2=true;
+		for(int i = 0 ;i<101; i++){
+			
+			if(arreglo6.get(i).getY() > prob1 && ap1==true && i<=50)
+			{
+				valoresRecta[0]=i;
+				ap1=false;
+			}
+			if(arreglo6.get(i).getY() < prob1 && ap2==true && i>50)
+			{
+				valoresRecta[1]=i-1;
+				ap2=false;
+			}
+		
+		}
+		
+		valores[0] = valoresRecta[0];
+		valores[1] = valoresRecta[1];
+		valoresRecta[0] = 0;
+		valoresRecta[1] = 0;
+		
+		//reotnr los indices d elos puntos y su funcion de pertenecia
+		return valores;
+	}
+
+	
+	public int[] getValuesRecta2(){
+		int []valores = new int[]{0,0};
+		double prob1=arreglo2.get(pilesize).getY();
+		boolean ap1=true;
+		boolean ap2=true;
+		for(int i = 0 ;i<101; i++){
+			
+			if(arreglo6.get(i).getY() > prob1 && ap1==true && i<=50)
+			{
+				valoresRecta[0]=i;
+				ap1=false;
+			}
+			if(arreglo6.get(i).getY() < prob1 && ap2==true && i>50)
+			{
+				valoresRecta[1]=i-1;
+				ap2=false;
+			}
+		
+		}
+		
+		valores[0] = valoresRecta[0];
+		valores[1] = valoresRecta[1];
+		valoresRecta[0] = 0;
+		valoresRecta[1] = 0;
+		
+		//reotnr los indices d elos puntos y su funcion de pertenecia
+		return valores;
+	}
+	
+
+
+	
+	public int[] getValuesRecta3(){
+		int []valores = new int[]{0,0};
+		double prob1=arreglo3.get(pilesize).getY();
+		boolean ap1=true;
+		boolean ap2=true;
+		for(int i = 0 ;i<101; i++){
+			
+			if(arreglo6.get(i).getY() > prob1 && ap1==true && i<=50)
+			{
+				valoresRecta[0]=i;
+				ap1=false;
+			}
+			if(arreglo6.get(i).getY() < prob1 && ap2==true && i>50)
+			{
+				valoresRecta[1]=i-1;
+				ap2=false;
+			}
+		
+		}
+		
+		valores[0] = valoresRecta[0];
+		valores[1] = valoresRecta[1];
+		valoresRecta[0] = 0;
+		valoresRecta[1] = 0;
+		
+		//reotnr los indices d elos puntos y su funcion de pertenecia
+		return valores;
+	}
+	
+	public int[] getValuesRecta4(){
+		int []valores = new int[]{0,0};
+		double prob1=arreglo4.get(pilesize).getY();
+		boolean ap1=true;
+		boolean ap2=true;
+		for(int i = 0 ;i<101; i++){
+			
+			if(arreglo6.get(i).getY() > prob1 && ap1==true && i<=50)
+			{
+				valoresRecta[0]=i;
+				ap1=false;
+			}
+			if(arreglo6.get(i).getY() < prob1 && ap2==true && i>50)
+			{
+				valoresRecta[1]=i-1;
+				ap2=false;
+			}
+		
+		}
+		
+		valores[0] = valoresRecta[0];
+		valores[1] = valoresRecta[1];
+		valoresRecta[0] = 0;
+		valoresRecta[1] = 0;
+		
+		//reotnr los indices d elos puntos y su funcion de pertenecia
+		return valores;
+	}
+
+	public int[] getValuesRecta5(){
+		int []valores = new int[]{0,0};
+		double prob1=arreglo5.get(pilesize).getY();
+		boolean ap1=true;
+		boolean ap2=true;
+		for(int i = 0 ;i<101; i++){
+			
+			if(arreglo6.get(i).getY() > prob1 && ap1==true && i<=50)
+			{
+				valoresRecta[0]=i;
+				ap1=false;
+			}
+			if(arreglo6.get(i).getY() < prob1 && ap2==true && i>50)
+			{
+				valoresRecta[1]=i-1;
+				ap2=false;
+			}
+		
+		}
+		
+		valores[0] = valoresRecta[0];
+		valores[1] = valoresRecta[1];
+		valoresRecta[0] = 0;
+		valoresRecta[1] = 0;
+		
+		//reotnr los indices d elos puntos y su funcion de pertenecia
+		return valores;
 	}
 
 }

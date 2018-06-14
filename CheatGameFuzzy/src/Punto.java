@@ -1,13 +1,23 @@
 
 public class Punto {
+	
 	int x;
 	double y;
 	int a,b;
+	
 	public Punto(int a,int b,int x) {
+		
+		//
 		this.x=x;
+		//funcion de menbresia 
 		this.y=FuzzyFunctions.triangle(a,b, x);
 	}
-	int getX() {return x;}
+	
+	public Punto(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	double getX() {return x;}
 	double getY() {return y;}
 	int getA() {return a;}
 	int getB() {return b;}
